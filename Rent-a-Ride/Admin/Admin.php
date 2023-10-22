@@ -11,7 +11,7 @@
         <ul>
             <li><a href="#car-management">Car Management</a></li>
             <li><a href="#booking-management">Booking Management</a></li>
-            <li><a href="#earnings">Earnings</a></li>
+            <li><a href="#contacts">Contacts</a></li>
             <li><a href="#profile">Profile</a></li>
         </ul>
     </nav>
@@ -28,6 +28,7 @@
         </thead>
         <tbody>
             <?php
+            // Your PHP code to fetch car data from the database
             include('db_connect.php'); // Include the database connection file
             
             $sql = "SELECT car_name, availability FROM cars";
@@ -51,29 +52,46 @@
 </section>
 
     <br><br><br><br>
+    
 
     <section id="booking-management">
         <h2>Booking Management</h2>
-        <h3 id="table_h2">Booking Requests</h3>
+        <h3 id ="table_h2">Booking Requests</h3>
         <table>
-            <thead>
+          <thead>
                 <tr>
-                    <th>Client Name</th>
-                    <th>Car Name</th>
-                    <th>Status</th>
+                    <th>Full Name</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                    <th>Pickup Point</th>
+                    <th>Hire Date</th>
+                    <th>Return Date</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>Car 1</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>Car 2</td>
-                    <td>Confirmed</td>
-                </tr>
+                <?php
+                include('db_connect.php'); // Include the database connection file
+
+                $sql = "SELECT FullName, MobileNumber, Email, PickupPoint, HireDate, ReturnDate FROM booking";
+                $result = mysqli_query($conn, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $row['FullName'] . '</td>';
+                        echo '<td>' . $row['MobileNumber'] . '</td>';
+                        echo '<td>' . $row['Email'] . '</td>';
+                        echo '<td>' . $row['PickupPoint'] . '</td>';
+                        echo '<td>' . $row['HireDate'] . '</td>';
+                        echo '<td>' . $row['ReturnDate'] . '</td>';
+                        echo '</tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="6">No booking requests found in the database.</td></tr>';
+                }
+
+                mysqli_close($conn);
+                ?>
             </tbody>
         </table>
         <br><br><br><br>
@@ -84,14 +102,47 @@
         <button id="confirm-booking">Confirm Booking</button>
     </section>
 
-    <section id="earnings">
-        <h2>Earnings and Reports</h2>
-        <h3>Earnings Summary</h3>
-        <p>Total Earnings: $10,000</p>
-        <p>Monthly Earnings: $2,000</p>
-        <h3>Earnings Chart</h3>
-        <canvas id="earnings-chart" width="400" height="200"></canvas>
-    </section>
+    
+    <section id="contacts">
+    <h2>Contacts Made</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Your PHP code to fetch contact data from the "contact" table in the database
+            include('db_connect.php'); // Include the database connection file
+            
+            $sql = "SELECT name, email, subject, message FROM contact";
+            $result = mysqli_query($conn, $sql);
+            
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<tr>';
+                    echo '<td>' . $row['name'] . '</td>';
+                    echo '<td>' . $row['email'] . '</td>';
+                    echo '<td>' . $row['subject'] . '</td>';
+                    echo '<td>' . $row['message'] . '</td>';
+                    echo '</tr>';
+                }
+            } else {
+                echo '<tr><td colspan="4">No contacts found in the database.</td></tr>';
+            }
+            
+            mysqli_close($conn);
+            ?>
+        </tbody>
+    </table>
+</section>
+
+        
+
 
     <h3>Add New Car</h3>
     <form enctype="multipart/form-data" action="add_car.php" method="POST">

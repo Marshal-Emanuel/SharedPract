@@ -1,62 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Cars</title>
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-    <section class="car-listings">
-        <?php
-        $host = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "rent_a_ride";
+<?php
+ 
+   if ($_SERVER["REQUEST_METHOD"] === "POST") {
+       $host = "localhost";
+       $username = "root";
+       $password = "";
+       $database = "rent_a_ride";
+   
+       $conn = new mysqli($host, $username, $password, $database);
+   
+       if ($conn->connect_error) {
+           die("Connection failed: " . $conn->connect_error);
+       }
+   
+       $fullName = $_POST["fullName"];
+       $mobileNumber = $_POST["mobileNumber"];
+       $email = $_POST["email"];
+       $pickupPoint = $_POST["pickupPoint"];
+       $hireDate = $_POST["hireDate"];
+       $returnDate = $_POST["returnDate"];
+   
+       $sql = "INSERT INTO booking (FullName, MobileNumber, Email, PickupPoint, HireDate, ReturnDate)
+               VALUES (?, ?, ?, ?, ?, ?)";
+       $stmt = $conn->prepare($sql);
+       $stmt->bind_param("ssssss", $fullName, $mobileNumber, $email, $pickupPoint, $hireDate, $returnDate);
+   
+       if ($stmt->execute()) {
+           $successMessage = "Booking successful!";
+       } else {
+           $errorMessage = "Error: " . $conn->error;
+       }
+   
+       $stmt->close();
+       $conn->close();
+   }
+   ?> 
 
-        $mysqli = new mysqli($host, $username, $password, $database);
+<html>
+<style>
+    .booking-form {
+       
+        background-color: #f2f2f2;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
 
-        if ($mysqli->connect_error) {
-            die("Connection failed: " . $mysqli->connect_error);
-        }
+    
+    label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+    }
 
-        $sql = "SELECT car_name, car_description, image_path, price FROM cars";
-        $result = $mysqli->query($sql);
+    input[type="text"],
+    input[type="email"],
+    input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $carName = $row["car_name"];
-                $carDescription = $row["car_description"];
-                $imagePath = $row["image_path"];
-                $descriptionArray = explode(",", $carDescription);
-                $price = $row["price"];
-                ?>
-                <div class="car-tile">
-                    <img src="<?php echo $imagePath; ?>" alt="<?php echo $carName; ?>" />
-                    <h3><?php echo $carName; ?></h3>
-                    <p><strong>Description:</strong></p>
-                    <ul>
-                        <?php foreach ($descriptionArray as $description) { ?>
-                            <li><?php echo $description; ?></li>
-                        <?php } ?>
-                        <br>
-                        <?php echo $price; ?>
-                    </ul>
+    input[type="submit"] {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
 
-                    <!-- Button to trigger the popup -->
-                    <button class="book-button" data-car="<?php echo $carName; ?>">Book Now</button>
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+    <h2>Booking Form</h2>
+    <?php if (isset($successMessage)) : ?>
+        <p style="color: green;"><?php echo $successMessage; ?></p>
+       <?php header(Location:'index.php');?>
+    <?php endif; ?>
+    <?php if (isset($errorMessage)) : ?>
+        <p style="color: red;"><?php echo $errorMessage; ?></p>
+    <?php endif; ?>
 
-                </div>
-                <?php
-            }
-        } else {
-            echo "No cars found in the database.";
-        }
+    <form action="bookingForm.php" method="post" id="bookingForm">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required><br>
 
-        $mysqli->close();
-        ?>
-    </section>
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="text" id="mobileNumber" name="mobileNumber" required><br>
 
-    <script src="script.js"></script>
-</body>
-</html>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="pickupPoint">Pickup Point:</label>
+        <input type="text" id="pickupPoint" name="pickupPoint" required><br>
+
+        <label for="hireDate">Hire Date:</label>
+        <input type="date" id="hireDate" name="hireDate" required><br>
+
+        <label for="returnDate">Return Date:</label>
+        <input type="date" id="returnDate" name="returnDate" required><br>
+
+        <input type="submit" value="Book">
+        <input type="submit" value="Cancel">
+
+    </form>
+    </html>

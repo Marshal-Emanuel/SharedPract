@@ -67,7 +67,7 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Contact Us</h2>
+        <!-- <h2>Contact Us</h2> -->
         <form action="process_contact_form.php" method="POST">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -89,4 +89,10 @@
         </form>
     </div>
 </body>
+<script>
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("subject").value = "";
+            document.getElementById("message").value = "";
+        </script>
 </html>
