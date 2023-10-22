@@ -1,0 +1,143 @@
+/* Set a gradient background of dark grey */
+body {
+    background: linear-gradient(180deg, #1e1d1d, #1e1c1c); /* Gradient background from dark gray to darker gray */
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+/* Style the horizontal menu bar with individual backgrounds, white font, and white shadow */
+.menu-bar {
+    background: #000; /* Black background for the horizontal menu bar */
+    text-align: center;
+    padding: 10px 0; /* Reduced padding */
+}
+
+.menu-bar ul {
+    list-style: none; /* Remove default list style */
+    display: flex; /* Make the menu items horizontal */
+    justify-content: space-around; /* Distribute items evenly */
+}
+
+.menu-bar li {
+    display: inline;
+}
+
+.menu-bar a {
+    text-decoration: none;
+    font-family: "Open Sans";
+    text-transform: uppercase;
+    font-size: 18px;
+    padding: 15px; /* Adjusted padding to match the design */
+    margin: 5px; /* Reduced margin between elements */
+    border-radius: 10px; /* Curvy edges */
+    color: #fff; /* White font color */
+    background: transparent; /* Clear background */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* White shadow */
+    transition: background-color 0.3s;
+}
+
+.menu-bar a:hover {
+    background: rgba(255, 255, 255, 0.1); /* Similar background color on hover */
+    color: #fff; /* White font color on hover */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Stronger white shadow on hover */
+}
+
+
+
+
+/* Style section headers with floating card effect and curvy edges */
+h2 {
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+    color: #fff;
+    border-radius: 10px; /* Curvy edges */
+    padding: 15px; /* Increased padding */
+    margin-top: 20px;
+    font-size: 28px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Soft white shadow */
+}
+
+h3{
+    padding-left: 70px;
+}
+
+/* Style tables with shadows and rounded corners */
+/* Style tables with shadows, rounded corners, and centered positioning */
+table {
+    width: 60%; /* Set the table width to 60% of the page */
+    margin: 0 auto; /* Center the table horizontally */
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Soft white shadow effect */
+    background: rgba(0, 0, 0, 0.2); /* Semi-transparent black background */
+    border-radius: 10px; /* Curvy edges */
+}
+
+table:hover {
+    box-shadow: 0 8px 12px rgba(255, 255, 255, 0.2); /* Slightly stronger white shadow on hover */
+}
+
+table, th, td {
+    border: 1px solid #333; /* Dark gray border for tables */
+}
+
+th {
+    background: rgba(0, 0, 0, 0.4); /* Darker background for table headings */
+    color: #fff; /* White font color for table headings */
+    padding: 8px;
+    text-align: left;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+
+/* Style buttons with rounded borders */
+button, input[type="submit"] {
+    background: rgba(0, 0, 0, 0.8); /* Darker black background for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 10px; /* Curvy edges */
+    padding: 15px; /* Increased padding */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover, input[type="submit"]:hover {
+    background: rgba(0, 0, 0, 0.6); /* Slightly lighter black on hover */
+}
+
+/* Style footer with soft white glassmorphism */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.1); /* Slightly transparent white glassmorphism effect */
+    border-radius: 10px; /* Curvy edges */
+    color: #fff;
+}
+
+/* Style the form elements with a modern look */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+    width: 100%;
+    padding: 15px; /* Increased padding */
+    margin: 5px 0;
+    background: rgba(0, 0, 0, 0.4); /* Darker semi-transparent black background */
+    border: none;
+    border-radius: 10px; /* Curvy edges */
+    color: #fff;
+}
+
+/* Style the file input for image upload */
+input[type="file"] {
+    background: rgba(0, 0, 0, 0.4); /* Darker semi-transparent black background */
+    border: none;
+    border-radius: 10px; /* Curvy edges */
+    color: #fff;
+}
